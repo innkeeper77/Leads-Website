@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Import";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>Use this page to import data to the database from 3 different types of text files:</p>
+
+<div>
+    <h2>File Upload</h2>
+     <form asp-controller="Import" asp-action="SingleFile" enctype="multipart/form-data" method="post">
+        <input type="file" name="file" />
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+
