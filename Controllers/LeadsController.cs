@@ -30,17 +30,27 @@ public class LeadsController : Controller
     // GET: LeadsController with a sorting specified by provided string
     public ActionResult Index(string sortOrder)
     {
-        ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : ""; // TODO ???
-        ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date"; // TODO ???
+        // Convert sort order if descending (causes sorts to be inverted every time selected again)
+        ViewBag.LastNameSort = sortOrder == "LastName" ? "LastName_desc" : "LastName";
+        ViewBag.PropertyTypeSort = sortOrder == "PropertyType" ? "PropertyType_desc" : "PropertyType";
+        ViewBag.StartDateSort = sortOrder == "StartDate" ? "StartDate_desc" : "StartDate";
+
         var leads = leadsService.Get();
+        if (sortOrder == null) { sortOrder = "StartDate"; };
         switch (sortOrder)
         {
             case "PropertyType":
                 return View(leadsService.Get().OrderBy(l => l.PropertyType).ThenBy(l => l.Project));
+            case "PropertyTypeDesc":
+                return View(leadsService.Get().OrderByDescending(l => l.PropertyType).ThenBy(l => l.Project));
             case "LastName":
                 return View(leadsService.Get().OrderBy(s => s.LastName));
-            case "	StartDate":
+            case "LastName_desc":
+                return View(leadsService.Get().OrderByDescending(s => s.LastName));
+            case "StartDate":
                 return View(leadsService.Get().OrderBy(s => s.StartDate));
+            case "StartDate_desc":
+                return View(leadsService.Get().OrderByDescending(s => s.StartDate));
             default:
                 return View(leadsService.Get());
         }
