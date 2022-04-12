@@ -1,6 +1,5 @@
 ﻿using LeadsData.Services;
 using Leads_Website.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leads_Website.Controllers;
