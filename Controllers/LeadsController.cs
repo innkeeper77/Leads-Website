@@ -19,9 +19,34 @@ public class LeadsController : Controller
     #endregion constructors
 
     // GET: LeadsController
+    /*
     public ActionResult Index()
     {
+        //return View(leadsService.Get().OrderBy(s => s.PropertyType));
         return View(leadsService.Get());
+    }
+    */
+
+    // GET: LeadsController with a sorting specified by provided string
+    public ActionResult Index(string sortOrder)
+    {
+        var leads = leadsService.Get();
+        switch (sortOrder)
+        {
+            case "PropertyType":
+                leads.OrderBy(l => l.LastName).ThenBy(l => l.Project);
+                break;
+            case "LastName":
+                leads.OrderBy(l => l.LastName);
+                break;
+            case "	StartDate":
+                leads.OrderBy(l => l.StartDate);
+                break;
+            default:
+                leads.OrderBy(l => l.Project);
+            break;
+        }
+        return View(leads);
     }
 
     // GET: LeadsController/Details/5
@@ -128,7 +153,9 @@ public class LeadsController : Controller
             }
             else
             {
-                leadsService.Remove(lead.Id); // catch below handles if Id is null
+                #pragma warning disable CS8604 // Possible null reference argument.
+                leadsService.Remove(lead.Id); // catch below handles if Id is null, as well as above if, so warning may be supressed.
+                #pragma warning restore CS8604 // Possible null reference argument.
                 return RedirectToAction(nameof(Index));
             }
         }
