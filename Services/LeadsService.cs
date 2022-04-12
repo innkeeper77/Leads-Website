@@ -18,6 +18,7 @@ namespace LeadsData.Services
         {
             return leads.Find(lead => true).ToList();
         }
+
         public Lead Get(string id)
         {
             return leads.Find(lead => lead.Id == id).FirstOrDefault();

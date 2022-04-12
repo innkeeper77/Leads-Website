@@ -30,23 +30,20 @@ public class LeadsController : Controller
     // GET: LeadsController with a sorting specified by provided string
     public ActionResult Index(string sortOrder)
     {
+        ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : ""; // TODO ???
+        ViewData["DateSortParm"] = sortOrder == "Date" ? "date_desc" : "Date"; // TODO ???
         var leads = leadsService.Get();
         switch (sortOrder)
         {
             case "PropertyType":
-                leads.OrderBy(l => l.LastName).ThenBy(l => l.Project);
-                break;
+                return View(leadsService.Get().OrderBy(l => l.PropertyType).ThenBy(l => l.Project));
             case "LastName":
-                leads.OrderBy(l => l.LastName);
-                break;
+                return View(leadsService.Get().OrderBy(s => s.LastName));
             case "	StartDate":
-                leads.OrderBy(l => l.StartDate);
-                break;
+                return View(leadsService.Get().OrderBy(s => s.StartDate));
             default:
-                leads.OrderBy(l => l.Project);
-            break;
+                return View(leadsService.Get());
         }
-        return View(leads);
     }
 
     // GET: LeadsController/Details/5

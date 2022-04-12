@@ -13,8 +13,7 @@
     <thead>
         <tr>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
-                @Html.DisplayNameFor(model => model.LastName)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["LastName"]">@Html.DisplayNameFor(model => model.LastName)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FirstName)
@@ -23,7 +22,7 @@
                 @Html.DisplayNameFor(model => model.Project)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PropertyType)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["PropertyType"]">@Html.DisplayNameFor(model => model.PropertyType)</a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.StartDate)

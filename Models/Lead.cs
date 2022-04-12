@@ -6,6 +6,16 @@ namespace Leads_Website.Models
 {
     public class Lead
     {
+        // Complex type requires a parameterless constructor but this should never be used
+        public Lead()
+        {
+            LastName = "null";
+            FirstName = "null";
+            PropertyType = "null";
+            Project = "null";
+            StartDate = new DateTime(1970, 1, 1); // Defaults to unix epoch start time if unspecified
+            Phone = "null";
+        }
         public Lead(List<string[]> leadValues)
         {
             //leadValues data format is LastName FirstName PropertyType Project StartDate Phone
@@ -24,33 +34,32 @@ namespace Leads_Website.Models
             Phone = leadValues[0][5].ToString();
         }
 
-        // Class members have defaults here due to .Net 6.0 change to warn on non nullable members needing to have non-null value when exiting constuctors
         [BsonId] // Primary Key
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; } // Nullable: must be null to allow mongodb to assign ID itself.
 
         [BsonElement("LastName")]
         [Required]
-        public string LastName { get; set; } = "-1";
+        public string LastName { get; set; }
 
         [BsonElement("FirstName")]
         [Required]
-        public string FirstName { get; set; } = "-1";
+        public string FirstName { get; set; }
 
         [BsonElement("Project")]
         [Required]
-        public string Project { get; set; } = "-1";
+        public string Project { get; set; }
 
         [BsonElement("PropertyType")]
         [Required]
-        public string PropertyType { get; set; } = "-1";
+        public string PropertyType { get; set; }
 
         [BsonElement("StartDate")]
         [Required]
-        public DateTime StartDate { get; set; } = new DateTime(1970, 1, 1); // Defaults to unix epoch start time if unspecified
+        public DateTime StartDate { get; set; }
 
         [BsonElement("Phone")]
         [Required]
-        public string Phone { get; set; } = "-1";
+        public string Phone { get; set; }
     }
 }
