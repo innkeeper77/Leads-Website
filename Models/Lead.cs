@@ -55,6 +55,7 @@ namespace Leads_Website.Models
         public string PropertyType { get; set; }
 
         [BsonElement("StartDate")]
+        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy}", ApplyFormatInEditMode = true)]
         [Required]
         public DateTime StartDate { get; set; }
 

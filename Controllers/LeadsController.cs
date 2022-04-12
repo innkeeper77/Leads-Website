@@ -18,15 +18,6 @@ public class LeadsController : Controller
 
     #endregion constructors
 
-    // GET: LeadsController
-    /*
-    public ActionResult Index()
-    {
-        //return View(leadsService.Get().OrderBy(s => s.PropertyType));
-        return View(leadsService.Get());
-    }
-    */
-
     // GET: LeadsController with a sorting specified by provided string
     public ActionResult Index(string sortOrder)
     {
@@ -52,7 +43,7 @@ public class LeadsController : Controller
             case "StartDate_desc":
                 return View(leadsService.Get().OrderByDescending(s => s.StartDate));
             default:
-                return View(leadsService.Get());
+                return View(leadsService.Get()); // Not useful in production, but this should show the order in the actual database I think. This would be actually sorted in a production product
         }
     }
 
